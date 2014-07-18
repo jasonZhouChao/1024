@@ -17,9 +17,12 @@ void printbox(int* array){
   static int counter;
   counter = 0;
   while(counter<ELEMENTS){
-    printf("%d",*(array+counter));
+    printf("\033[34m%d\033[0m   ",*(array+counter));
     ++counter;
-    if(counter % 4 == 0){
+    if(counter != 16 && counter % 4 == 0){
+      printf("\n\n\n");
+    }
+    if(counter == 16){
       printf("\n");
     }
   }
