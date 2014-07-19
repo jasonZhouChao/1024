@@ -32,17 +32,80 @@ void left(int* array){
   static int can_left_flag = 0;
   static int counter = 0;
   while(counter<16){
-    if ( *(array+counter) == *(array+1+counter) ){
+    if ( *(array+counter) != 0 &&
+	 *(array+counter) == *(array-1+counter) ){
       can_left_flag = 1;
     }
     ++counter;
   }
-  printf("Can do left.\n");
+  if ( can_left_flag == 1){
+    printf("Can do left.\n");
+  }
 }
 
+void right(int* array){
+  static int can_right_flag = 0;
+  static int counter = 0;
+  while(counter<16){
+    if ( *(array+counter) != 0 &&
+	 *(array+counter) == *(array+1+counter) ){
+      can_right_flag = 1;
+    }
+    ++counter;
+  }
+  if ( can_right_flag == 1){
+    printf("Can do right.\n");
+  }
+}
+
+
+
+void up(int* array){
+  static int can_up_flag = 0;
+  static int counter = 0;
+  while(counter<16){
+    if ( *(array+counter) != 0 &&
+	 *(array+counter) == *(array-4+counter) ){
+      can_up_flag = 1;
+    }
+    ++counter;
+  }
+  if ( can_up_flag == 1){
+    printf("Can do up.\n");
+  }
+}
+
+
+void down(int* array){
+  static int can_down_flag = 0;
+  static int counter = 0;
+  while(counter<16){
+    if ( *(array+counter) != 0 &&
+	 *(array+counter) == *(array+4+counter) ){
+      can_down_flag = 1;
+    }
+    ++counter;
+  }
+  if ( can_down_flag == 1){
+    printf("Can do down.\n");
+  }
+}
+
+
 void input(int* array){
-  if ( getchar() == 'a' ) {
+  static char c;
+  c = getchar();
+  if ( c == 'a' ) {
     left(array);
+  };
+  if ( c == 'd' ) {
+    right(array);
+  };
+  if ( c == 'w' ) {
+    up(array);
+  };
+  if ( c == 's' ) {
+    down(array);
   };
 }
 
