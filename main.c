@@ -20,10 +20,10 @@ void printbox(int* array){
     printf("\033[34m%d\033[0m   ",*(array+counter));
     ++counter;
     if(counter != 16 && counter % 4 == 0){
-      printf("\n\n\n");
+      printf("\n\n");
     }
     if(counter == 16){
-      printf("\n");
+      printf("\n\n");
     }
   }
 }
@@ -118,6 +118,17 @@ void initprompt(){
 	 "You also need to press the return key to input.\n");
 }
 
+void random2(int* array){
+
+      srand(time(NULL));
+      int r = rand() % 16;
+
+      if ( *(array+r) == 0 ) {
+          *(array+r) = 2;
+      }
+
+}
+
 int main(){
 
   int* box = malloc (sizeof(int) * ELEMENTS);
@@ -125,17 +136,12 @@ int main(){
 
   initprompt();
 
-  *(box+4) = 2;
-  *(box+5) = 2;
-
   printbox(box);
 
 
+  random2(box);
+  printbox(box);
 
-  srand(time(NULL));
-  int r = rand() % 16;
-  
-  
   input(box);
 
 
