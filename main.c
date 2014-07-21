@@ -136,7 +136,7 @@ void initprompt(){
 
 void random2(int* array){
 
-      srand(time(NULL));
+
       static int r;
       r = rand() % 16;
 
@@ -147,16 +147,16 @@ void random2(int* array){
 }
 
 int main(){
-
+srand(time(NULL));
   int* box = malloc (sizeof(int) * ELEMENTS);
   initbox(box);
 
   initprompt();
 
-  *(box) = 2;
-  *(box+1) = 2;
+  //*(box) = 2;
+  //*(box+1) = 2;
 
-
+  random2(box);
   random2(box);
   printbox(box);
 
