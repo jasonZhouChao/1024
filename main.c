@@ -38,9 +38,21 @@ void left(int* array){
     }
     ++counter;
   }
-  if ( can_left_flag == 1){
-    printf("Can do left.\n");
+
+  if(can_left_flag == 1){
+      counter = 1;
+  while(counter<16){
+    if ( *(array+counter-1) == 0  ){
+        *(array+counter-1) = *(array+counter);
+        *(array+counter) = 0;
+    }
+else if (*(array+counter-1) == *(array+counter)){
+    *(array+counter-1) *= 2;
+        *(array+counter) = 0;
+}
+    ++counter;
   }
+    }
 }
 
 void right(int* array){
@@ -48,7 +60,7 @@ void right(int* array){
   static int counter = 0;
   while(counter<16){
     if ( *(array+counter) != 0 &&
-	 *(array+counter) == *(array+1+counter) ){
+ 	 *(array+counter) == *(array+1+counter) ){
       can_right_flag = 1;
     }
     ++counter;
@@ -97,15 +109,19 @@ void input(int* array){
   c = getchar();
   if ( c == 'a' ) {
     left(array);
+    printbox(array);
   };
   if ( c == 'd' ) {
     right(array);
+    printbox(array);
   };
   if ( c == 'w' ) {
     up(array);
+    printbox(array);
   };
   if ( c == 's' ) {
     down(array);
+    printbox(array);
   };
 }
 
@@ -121,7 +137,8 @@ void initprompt(){
 void random2(int* array){
 
       srand(time(NULL));
-      int r = rand() % 16;
+      static int r;
+      r = rand() % 16;
 
       if ( *(array+r) == 0 ) {
           *(array+r) = 2;
@@ -136,7 +153,8 @@ int main(){
 
   initprompt();
 
-  printbox(box);
+  *(box) = 2;
+  *(box+1) = 2;
 
 
   random2(box);
