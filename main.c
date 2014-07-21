@@ -40,33 +40,44 @@ void left(int* array){
   }
 
   if(can_left_flag == 1){
-      counter = 1;
-  while(counter<16){
-    if ( *(array+counter-1) == 0  ){
+    counter = 1;
+    while(counter<16){
+      if ( *(array+counter-1) == 0  ){
         *(array+counter-1) = *(array+counter);
         *(array+counter) = 0;
-    }
-else if (*(array+counter-1) == *(array+counter)){
-    *(array+counter-1) *= 2;
+      }
+      else if (*(array+counter-1) == *(array+counter)){
+	*(array+counter-1) *= 2;
         *(array+counter) = 0;
-}
-    ++counter;
-  }
+      }
+      ++counter;
     }
+  }
 }
 
 void right(int* array){
   static int can_right_flag = 0;
   static int counter = 0;
-  while(counter<16){
+  while(counter<15){
     if ( *(array+counter) != 0 &&
  	 *(array+counter) == *(array+1+counter) ){
       can_right_flag = 1;
     }
     ++counter;
   }
-  if ( can_right_flag == 1){
-    printf("Can do right.\n");
+    if(can_right_flag == 1){
+    counter = 0;
+    while(counter<15){
+      if ( *(array+counter+1) == 0  ){
+        *(array+counter+1) = *(array+counter);
+        *(array+counter) = 0;
+      }
+      else if (*(array+counter+1) == *(array+counter)){
+	*(array+counter+1) *= 2;
+        *(array+counter) = 0;
+      }
+      ++counter;
+    }
   }
 }
 
@@ -134,30 +145,35 @@ void initprompt(){
 	 "You also need to press the return key to input.\n");
 }
 
-void random2(int* array){
+int random2(){
+  static int r;
+  r = rand() % 16;
+  //printf("r is %d\n",r);
+  return r;
+}
 
-
-      static int r;
-      r = rand() % 16;
-
-      if ( *(array+r) == 0 ) {
-          *(array+r) = 2;
-      }
-
+void random2assign(int*array,int r){
+  if ( *(array+r) == 0 ) {
+    *(array+r) = 2;
+  }
 }
 
 int main(){
-srand(time(NULL));
+  srand(time(NULL));
   int* box = malloc (sizeof(int) * ELEMENTS);
   initbox(box);
 
   initprompt();
 
-  //*(box) = 2;
-  //*(box+1) = 2;
-
-  random2(box);
-  random2(box);
+ 
+  static int random2ret1,random2ret2; 
+  random2ret1 = random2();
+  random2assign(box,random2ret1);
+  random2ret2 = random2ret1;
+  while(random2ret1 == random2ret2){
+    random2ret2 = random2();
+  }
+  random2assign(box,random2ret2);
   printbox(box);
 
   input(box);
